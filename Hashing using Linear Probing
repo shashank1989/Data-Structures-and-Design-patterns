@@ -1,0 +1,182 @@
+/* Hashing using Linear Probing */
+
+/*Write a Program to create your own Hash Map data Structure and prevent collision using Linear Probing*/
+
+/*Linear probing is a strategy for resolving the hash collision by placing the key into the closest possible empty cell.
+
+In order to add an item to the hash table , we will first create
+
+1) Customize function to calculate hashcode.
+
+2) Calculate index using hash function h(x) = (key.hashcode()+i)%HASH_TABLE_SIZE.
+
+3)In order to find next possible empty cell we will use rehashing technique.
+
+In Linear probing we will calculate the threshold/Load_factor and once the size is greater than max size,we will initialize a new array as 2*old_table_size and copy the old array elements into the new initialized array.
+
+Please find below source code of program in order to implement Linear Probing hashing */
+
+
+
+package hashing_closed_addressing;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author shashank
+ */
+
+class hash_code
+{
+ 
+    int hash_table_size =11;
+    String hash_table[] = new String[hash_table_size];
+    String hash_key[] = new String[hash_table_size];
+    char hash_value[];
+    private float threshold = .75f;
+    int maxsize;
+    int currentsize = 0;
+ 
+ 
+    public int hash_code(String key)
+    {
+        hash_value = key.toCharArray();
+        int hash_code=0;
+     
+        for(int i=0;i<hash_value.length;i++)
+        {
+            hash_code = hash_code + hash_value[i];
+        }
+        return hash_code;
+    }
+ 
+    public void setthreshold(float threshold)
+    {
+        this.threshold = threshold;
+        maxsize = (int)(hash_table.length * threshold);
+     
+    }
+ 
+    public int hash_function(String key,int i)
+    {
+        int hash_val = hash_code(key);
+        int index = (hash_val+i)%hash_table.length;
+        return index;
+    }
+ 
+    public void hash_map(String key,String value)
+    {
+     
+     
+        int i =0;
+       maxsize = (int)(hash_table.length * threshold);
+     
+            //System.out.println(" i a here buddy");
+        while(i<hash_table_size)
+        {
+            int index = hash_function(key,i);
+            if(hash_table[index]==null)
+            {
+                hash_table[index] = value;
+                hash_key[index] = key;
+                currentsize++;
+                break;
+            }
+            i++;
+        }
+     
+        if(currentsize>maxsize)
+        {
+           // System.out.println(" i a here buddy");
+            resize_Array();
+        }
+                           
+    }
+ 
+    public String get_value(String key)
+    {
+        int i =0;
+        int index =0;
+   
+        while(i<hash_table_size)
+        {
+         index = hash_function(key,i);
+        if(hash_table[index]==null)
+        {
+            System.out.println("No value at given index");
+        }
+        else if(hash_key[index].equals(key))
+        {
+            return hash_table[index];
+        }
+        i++;
+        }
+        return "No data";
+    }
+ 
+    public void resize_Array()
+    {      
+     
+         hash_table_size = 2*(hash_key.length);
+        maxsize = (int)(hash_table_size * threshold);
+        String[] old_hash_table = hash_table;
+        String[] old_hash_key = hash_key;
+         hash_table = new String[hash_table_size];
+         hash_key = new String[hash_table_size];
+        currentsize=0;
+     
+        System.out.println(hash_table_size);
+     
+        for(int i=0;i<old_hash_table.length;i++)
+        {
+            if(old_hash_table[i]!=null && old_hash_key[i]!=null )
+            {
+             //   System.out.println("inside resize" + old_hash_key[i]+ old_hash_table[i]);
+            hash_map(old_hash_key[i],old_hash_table[i]);
+            }
+        }
+    }
+}
+
+public class Linear_probing {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+     
+        hash_code hk = new hash_code();
+        Scanner sc = new Scanner(System.in);
+        int c;
+        do
+        {
+            System.out.print("Enter Key value :-->");
+            String key = sc.next();
+         
+            System.out.println("Enter  value :-->");
+            String value = sc.next();
+         
+            hk.hash_map(key, value);
+         
+         
+            System.out.println("Do you want to enter more values press Y to yes else n to exit");
+            c = sc.next().charAt(0);
+        }while(c=='Y'||c=='y');
+     
+        do
+        {
+            System.out.println("Enter Key value to retrieve data :-->");
+            String key = sc.next();
+         
+           String val =  hk.get_value(key);
+         
+            System.out.println("Value at mentioned key -->" + key + " is :-->" + val);
+         
+            System.out.println("Do you want to retrieve more values press Y to yes else n to exit");
+            c = sc.next().charAt(0);
+        }while(c=='Y'||c=='y');
+        // TODO code application logic here
+    }
+ 
+}
