@@ -1,0 +1,126 @@
+                                               
+ There are multiple ways to complete a job, but the question is the way we use to complete the tasks is that efficient? Are we sure?
+ Let us take it in this way you have an interview schedule in some part of city take Bangalore for instance you are living in Marathalli and you have an interview schedule at M G Road at 9 AM.
+ Please note: It is a peak hour which involves hell lot of traffic and you have to travel 20 KM and you have 40 min to reach to destination (Running time analysis depends over rate of growth: will take it later during this article) .
+ So you have three options:
+ 1) Take your own vehicle.
+ 2) Take OLA/UBER/BMTC BUS
+ 3) Take nearby Metro
+·         Please think and update me what do you think is the most efficient way of transport at this hour.
+ So when it comes to algorithm designing multiple algorithms are available for solving the same problem you can consider sorting algorithms isn't it ?/
+So Algorithm analysis is a technique to identify which of those algorithms are efficient in terms of time and space consumed and also in terms of running time , memory and individual's effort to modify or change.
+ i) What is Running Time Analysis?
+ I think you got it , yes it involves processing time and processing time is directly proportional to input size.
+ i.e -The process to identify how processing time increases when the size of the problem input increases
+ For e.g. :-
+n  Array size
+n  Number of bits in binary representation of the input
+n  polynomial degree
+
+ At this point you must be thinking how to compare algorithms what all factors are involved right ??
+ ii) Let us discuss three factors
+·         Execution times :: It varies and it is specific to a particular machine.
+·         No of statements executed :: It varies and again it depends over the programming Language and style of a programmer
+·         Comparison which is independent of machine and programming style -- The best way to measure i.e running time of a given algorithm as a function of the input size n.
+
+ iii) What is Rate of Growth?
+
+The rate at which the running time increases as a function of input is called the rate of growth 
+
+let us take an example f(x) = x4 + x3 + x2 + x1 + 1;
+
+Cost 1                                    : x4
+Cost 2                                    : x3
+Cost 3                                    : x2
+Cost 4                                    : x
+Cost 5                                    : 1
+
+For a given function we can ignore the lower order terms that are comparatively insignificant for large value of input size n and we can approximate rate of growth to x4
+Rate of Growth examples:
+
+Time complexity
+Name
+Example
+1
+constant
+Adding an element in front of Linked List
+logn
+Logarithmic
+Finding an element in a sorted array
+n
+Linear
+Finding an element in a unsorted array
+nlogn
+Linear Logarithmic
+Merge Sort -- sorting using divide and conquer
+n^2
+Quadratic
+Shortest path between two nodes in a graph
+n^3
+Cubic
+Matrix multiplication
+2^n
+Exponential
+Tower of Hanoi
+
+Decreasing Growth of rate order
+------------------------------------------------------------------------------------------------------------->
+2^2^n -> n! ->4^n -> 2^n -> n^2 -> nlogn ->log(n!) -> n -> 2^logn ->underroot of logn -> loglogn -> 1
+Types of Analysis:
+For analyzing any algorithm we need to identify best case(algorithm takes less time on given input) and worst Case (algorithm takes long time on given input).
+
+In order to analyze algorithms we have three types of analysis
+
+1) Worst Case    : Use to define the input for which the algorithm takes long time to execute i.e the algorithm runs slower
+2) Best case  :     Use to define the input for which the algorithm takes less time to execute i.e the algorithm runs faster
+3) Average Case : It is use to determine the inputs for which the algorithm will takes the average running time
+Average time is greater than equals to lower bound and lesser than equal to upper bound
+
+n  Asymptotic Notations :
+
+For a given algorithm, we can represent the best , worst and average cases in terms of expression and for all the three cases we need to identify lower and upper bounds
+Let us assume we represent an algorithm as f(n)
+n  Big-O Notation :-
+Big-O Notation will provide the tight upper bound of the given function , It will be represented as below
+f(n) = O(g(n)) , it means for the larger values of n , the upper bound for algorithm f(n) is g(n).
+For example : Let us consider the equation n^4 +200n^2 +200^n +200
+Since g(n) gives the maximum rate of growth hence for the given algorithm g(n) is n^4
+{f(n) : there exist positive constant c and nO such that 0<=f(n)<=cg(n) for all n>=no} and g(n) is asymptotic tight upper bound for f(n)
+O(g(n)) is the set of functions with smaller or same order of growth as g(n)
+Please note : We need to analyze algorithms at larger values of n only i.e below no we dont have to care for rate of growth
+Examples : Find the upper bound of below expressions
+1) f(n) = 4n+8
+4n+8<=5n for all n>=8 i.e 0<=4n+8<=5n{0<=f(n)<=cg(n)}
+i.e 4n+8 = O(n) with c =5 and no = 8; Hence the upper bound is O(n)
+2) f(n) = n^2+1
+n^2+1<=2n^2 for all n>=1 i.e 0<=n^2+1<=2n^2
+i.e. n^2+1 = O(n^2) with c = 2 and no = 1; hence the upper bound is O(n^2)
+Please Note: there is no unique set of values for no and c , there can be multiple values are possible
+
+Omega Notations Ω
+Likewise Big O notation , Omega Notations Ω will provide the lower bound of the expression(given algorithm) , Please find below representation
+f(n) = Ω(g(n), It means for the larger values  of n the lower bound for an algorithm f(n) is g(n)
+For example : For a given equation 100n4 + 20n3 +10 n2 + n1 + 1 is Ω(n4)
+Definition:
+{f(n) : there exist positive constant c and nO such that 0<=cg(n) <=f(n)for all n>=no} and g(n) is asymptotic tight upper bound for f(n)
+g(n) is the asymptotic tight lower bound for f(n) , here our aim is to give the largest rate of growth g(n) which is less than or equal to given algorithm rate of growth f(n).
+For e.g. :- f(n) = 6n2
+0<=cn2<=6n2 à such that c =1 and no = 1
+
+Theta-ʘ Notations:
+The average running time of an algorithm should always lie between upper bound and lower bound, if both give same rate of growth Theta-ʘ Notations  will also give the same rate of growth.
+This notation decides whether the upper and lower bound of algorithm are same.
+For e.g. f(n) = 20n +n, Here the best case and  the worst case is same , and as a result the average case is also the same
+If in case for a given function if the rate of growths for Omega and Theta notation are not same , we need to consider all possible time complexities and take an average of it
+{f(n) : there exist positive constant c1,c2 and nO such that 0<=c1g(n) <=f(n)<=c2(g(n)) for all n>=no} and g(n) is asymptotic tight upper bound for f(n).
+For e.g.
+F(n) = n2/2-n/2
+0<=n2/5<= n2/2-n/2 <= n2 for all n>=1 therefore ʘ(n2)  with c1=1,c2=1 and no==1
+
+
+
+
+
+
+
+
