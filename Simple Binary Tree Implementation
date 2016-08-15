@@ -1,0 +1,184 @@
+/* Write a Program for Simple Binary Tree implementation and demonstrate
+1) Inorder traversal
+2) Postorder traversal
+3) Pre order traversal
+
+*/
+
+
+package binary_tree;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author shashank
+ */
+
+class Node
+{
+    Node Left;
+    Node Right;
+    String data ;
+ 
+    public Node()
+    {
+        Left = null;
+        Right = null;
+        data = null;
+    }
+ 
+    public Node(String data)
+    {
+        this.Left = null;
+        this.Right = null;
+        this.data = data;
+    }
+
+    public Node getLeft() {
+        return Left;
+    }
+
+    public void setLeft(Node Left) {
+        this.Left = Left;
+    }
+
+    public Node getRight() {
+        return Right;
+    }
+
+    public void setRight(Node Right) {
+        this.Right = Right;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+ 
+ 
+}
+
+class Binary
+{
+
+    Node root;
+    int c = 0;
+    public Binary()
+    {
+        root = null;
+    }
+ 
+    public void insert_binary(String data)
+    {
+        root = insert_binary_tree(root,data);
+    }
+ 
+    public Node insert_binary_tree(Node node,String d)
+    {
+     
+        if(node==null)
+        {
+            node = new Node(d);
+        //    System.out.print("i am here again" + c);
+     
+        }
+     
+        else
+        {
+            if(node.getRight()==null)
+            {
+                node.Right = insert_binary_tree(node.Right,d);
+          //      c = 1;
+            }
+            else
+            {
+                 node.Left = insert_binary_tree(node.Left,d);
+             //    c = 2;
+            }
+         
+        }
+        return node;
+    }
+    public void preorder()
+    {
+        preorder_traversal(root);
+    }
+    public void preorder_traversal(Node preO)
+    {
+        if(preO!=null)
+        {
+            System.out.print(preO.getData() + " ");
+            preorder_traversal(preO.getLeft());
+            preorder_traversal(preO.getRight());
+         
+        }
+    }
+ 
+     public void inorder()
+    {
+        inorder_traversal(root);
+    }
+    public void inorder_traversal(Node inO)
+    {
+        if(inO!=null)
+        {
+           inorder_traversal(inO.getLeft());
+            System.out.print(inO.getData() + " ");
+            inorder_traversal(inO.getRight());
+         
+        }
+    }
+       public void postorder()
+    {
+        postorder_traversal(root);
+    }
+    public void postorder_traversal(Node po)
+    {
+        if(po!=null)
+        {
+            postorder_traversal(po.getLeft());
+            postorder_traversal(po.getRight());
+            System.out.print(po.getData() + " ");
+         
+        }
+    }
+ 
+}
+public class Binary_Tree {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+     
+        char ch;
+        Binary b = new Binary();
+        Scanner sc = new Scanner(System.in);
+        do
+        {
+     
+        System.out.println("enter data");
+     
+        String data = sc.next();
+     
+        b.insert_binary(data);
+        System.out.println("enter y to add more values to binary tree");
+     
+        ch = sc.next().charAt(0);
+        }while(ch=='y'||ch=='Y');
+        System.out.print("Post order :->");
+        b.postorder();
+        System.out.println();
+        System.out.print("Pre order :->");
+        b.preorder();
+        System.out.println();
+        System.out.print("In order :->");
+        b.inorder();
+    }
+ 
+}
