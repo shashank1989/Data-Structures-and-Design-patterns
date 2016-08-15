@@ -1,0 +1,237 @@
+
+/*OPEN HASHING --- HASH TABLE CHAINING USING linked LIST */
+
+/*Write a Program to create your own Hash Map data structure and prevent collision using open hashing chaining,*/
+
+Chaining allows sorting the key elements with the same hash value into linked list.
+
+With open hashing ,the hash table is implemented as a data structure of array and that of fix size.
+Where the empty hash table is first created ,each location in the array contains an empty list.
+In order to add an item to the hash table , we will first create
+
+1) Customize function to calculate hashcode.
+
+2) Calculate hash value using hash function h(x) = key.hashcode()%HASH_TABLE_SIZE.
+
+3)Location given by the hash
+
+value of the Key will searched and the new item is inserted to the head of the singly linked list.
+
+ 
+
+package hashingsc;
+
+
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author shashank
+
+ */
+
+class Node
+{
+    protected Node link;
+    protected String data;
+    protected String key;
+ 
+    public Node()
+    {
+        link = null;
+        data = null;
+        key = null;
+             
+    }
+    public Node(String data,String key, Node link)
+    {
+        this.link = link;
+        this.data = data;
+        this.key = key;
+    }
+ 
+    public void setLink(Node n)
+    {
+        this.link = n;
+    }
+ 
+    public void setdata(String data)
+    {
+        this.data = data;
+    }
+ 
+    public void setKey(String key)
+    {
+        this.key = key;
+    }
+ 
+    public Node getlink()
+    {
+        return link;
+    }
+ 
+    public String getdata()
+    {
+        return data;
+ 
+    }
+ 
+    public String getKey()
+    {
+        return key;
+ 
+    }
+
+}
+
+
+class hash_key
+{
+int hash_table_size = 10;
+Node start;
+Node end;
+int size;
+char key_value[];
+Node hk[] = new Node[hash_table_size];
+int len;
+public hash_key()
+{
+    start = null;
+    end = null;
+    size = 0;
+
+}
+
+public boolean isempty()
+{
+    return start==null;
+}
+
+public int getSize()
+{
+    return size;
+}
+
+public Node insert_at_beg(String d,String  key ,int index)
+{
+    Node nptr = new Node(d,key,null);
+
+    if(hk[index]==null)
+    {
+        hk[index] = nptr;
+    }
+    else
+    {
+        nptr.setLink(hk[index]);
+        hk[index] = nptr;
+    }
+    return hk[index];
+}
+
+public int calculateHashKeycode(String hash)
+{
+    key_value  = hash.toCharArray();
+ 
+    int hashcode = 0;
+    for(int i=0;i<hash.length();i++)
+    {
+        hashcode = hashcode + key_value[i];
+     
+     
+     // System.out.println("Ascii value for :" + key_value[i] + ": is :" + (int)key_value[i]);
+    }
+   // System.out.println("hashcode is" + hashcode);
+    return hashcode;
+ 
+}
+
+public int hash_function(String key)
+{
+    int hash_code = calculateHashKeycode(key);
+    int index = hash_code%hash_table_size;
+    return index;
+}
+
+public void hash_map(String key, String value)
+{
+    int index= hash_function(key);
+    hk[index] = insert_at_beg(value,key,index);
+}
+
+public String gethashvalue(String key)
+{    
+    int index = hash_function(key);
+ 
+    if(hk[index]==null)
+    {
+        return "no key stored with given value";
+    }
+ 
+    Node current = hk[index];
+ 
+ 
+    if(current.getlink()==null)
+    {
+        if(key.equals(current.getKey()))
+        return current.getdata();
+        else
+            return "Key not found";
+    }
+ 
+    else
+    {
+        while(current!=null)
+        {
+           // System.out.print("inside this loop" + index);
+            if(key.equals(current.getKey()))
+                return current.getdata();
+ 
+            else
+            {
+               current = current.getlink();
+         
+            }
+         
+        }
+        return "Key not found";
+     
+    }
+}
+}
+public class HashingSC {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+     
+        Scanner sc = new Scanner(System.in);
+     
+        hash_key hk = new hash_key();
+     
+        System.out.println("Enter Key value pair");
+     
+        for(int i=0;i<3;i++)
+        {
+            System.out.print("Enter Key ---->");
+            String key = sc.next();
+            System.out.print("Enter associated Value ----->");
+            String value = sc.next();
+       hk.hash_map(key,value);
+        }
+        char c;
+        do
+        {
+            System.out.println("Enter Key to retrieve data");
+      System.out.println("values of a given key is ::->" + hk.gethashvalue(sc.next()));
+         
+           System.out.print("Do you want to retrieve more values press y to continue and n to exit ->");
+            c = sc.next().charAt(0);
+        }while(c =='y'||c=='Y');
+     
+     
+        // TODO code application logic here
+    }
+ 
+}
